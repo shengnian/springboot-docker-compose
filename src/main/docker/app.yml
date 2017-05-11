@@ -1,0 +1,15 @@
+version: '2'
+services:
+  springboot-docker-compose-app:
+    image: shengnianos/springboot-docker-compose-app
+    links:
+      - shengnianos-mariadb:shengniano-mariadb
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mariadb://shengnianos-mariadb:3306/sosdocker
+      - SOS_SLEEP=10 # gives time for the database to boot before the application
+  shengnianos-mariadb:
+    extends:
+      file: mariadb.yml
+      service: shengnianos-mariadb
+
+

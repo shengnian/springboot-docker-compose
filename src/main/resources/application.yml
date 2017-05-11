@@ -1,0 +1,15 @@
+spring:
+  jpa:
+    database: MYSQL
+    hibernate:
+      ddl-auto: none
+
+  datasource:
+    platform: mysql
+    url: jdbc:mariadb://shengnianos-mariadb:3306/sosdocker
+    username: root
+    password:
+    driver-class-name: org.mariadb.jdbc.Driver
+    initialize: true
+server:
+    port: 8081
