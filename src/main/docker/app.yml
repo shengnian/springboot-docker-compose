@@ -1,15 +1,27 @@
-version: '2'
+version: '3'
 services:
   springboot-docker-compose-app:
     image: shengnianos/springboot-docker-compose-app
-    links:
-      - shengnianos-mariadb:shengniano-mariadb
+    container_name: shengnianos-webapp
+#   see: https://github.com/docker/compose/issues/2841
+#   links:
+#     - shengnianos-mariadb:shengniano-mariadb
     environment:
+# if not set the container_name, the default container name use [folder name]_[service name]_[number]
+#     - SPRING_DATASOURCE_URL=jdbc:mariadb://docker_shengnianos-mariadb_1:3306/sosdocker
       - SPRING_DATASOURCE_URL=jdbc:mariadb://shengnianos-mariadb:3306/sosdocker
       - SOS_SLEEP=10 # gives time for the database to boot before the application
+    ports:
+      - 8081:8081
   shengnianos-mariadb:
-    extends:
-      file: mariadb.yml
-      service: shengnianos-mariadb
-
-
+    container_name: shengnianos-mariadb
+    image: mariadb:10.1.23
+    # volumes:
+    #     - ~/volumes/mysql/:/var/lib/mysql/
+    environment:
+       - MYSQL_USER=root
+       - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+       - MYSQL_DATABASE=sosdocker
+    ports:
+       - 3307:3306
+    command: mysqld --lower_case_table_names=1 --skip-ssl

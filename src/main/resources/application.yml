@@ -3,7 +3,9 @@ spring:
     database: MYSQL
     hibernate:
       ddl-auto: none
-
+  mvc:
+    favicon:
+      enabled: false
   datasource:
     platform: mysql
     url: jdbc:mariadb://shengnianos-mariadb:3306/sosdocker
